@@ -3,6 +3,8 @@ import TodoList from "./components/TodoList";
 import { createTheme, ThemeProvider } from "@mui/material";
 import { TodosContext } from "./contexts/todosContext";
 import { useState } from "react";
+import { ToastContext, ToastProvider } from "./contexts/ToastContext";
+import TodosProvider from "./contexts/todosContext";
 
 const theme = createTheme({
   typography: {
@@ -41,20 +43,22 @@ function App() {
 
   return (
     <ThemeProvider theme={theme}>
-      <div
-        className="App"
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          height: "100vh",
-          backgroundColor: "#282c34",
-        }}
-      >
-        <TodosContext.Provider value={{ todos, setTodos }}>
-          <TodoList />
-        </TodosContext.Provider>
-      </div>
+      <TodosProvider>
+        <ToastProvider>
+          <div
+            className="App"
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              height: "100vh",
+              backgroundColor: "#282c34",
+            }}
+          >
+            <TodoList />
+          </div>
+        </ToastProvider>
+      </TodosProvider>
     </ThemeProvider>
   );
 }
